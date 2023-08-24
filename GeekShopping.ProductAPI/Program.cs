@@ -1,6 +1,8 @@
 using GeekShopping.ProductAPI.Model.Context;
 using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
+using AutoMapper;
+using GeekShopping.ProductAPI.Config;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
@@ -10,6 +12,7 @@ builder.Services.AddControllers();
 var connectionString = builder.Configuration.GetConnectionString("MySQLConnection");
 var serverVersion = new MySqlServerVersion(new Version(8, 1, 0));
 
+//config db connection
 builder.Services.AddDbContext<MySQLContext>(options =>
 {
     options.UseMySql(connectionString, serverVersion)
@@ -24,6 +27,11 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "GeekShopping", Version = "1" });
 });
+
+//config mapper
+IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
+builder.Services.AddSingleton(mapper);
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 var app = builder.Build();
 
