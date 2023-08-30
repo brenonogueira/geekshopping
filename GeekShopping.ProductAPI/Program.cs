@@ -3,6 +3,7 @@ using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
 using GeekShopping.ProductAPI.Config;
+using GeekShopping.ProductAPI.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
@@ -32,6 +33,8 @@ builder.Services.AddSwaggerGen(c =>
 IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
 builder.Services.AddSingleton(mapper);
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
 var app = builder.Build();
 
