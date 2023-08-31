@@ -19,7 +19,7 @@ namespace GeekShopping.ProductAPI.Model
 
         [Column("description")]
         [StringLength(500)]
-        public decimal Description { get; set; }
+        public string Description { get; set; }
 
         [Column("category_name")]
         [StringLength(50)]
@@ -27,6 +27,6 @@ namespace GeekShopping.ProductAPI.Model
 
         [Column("image_url")]
         [StringLength(300)]
-        public string ImageUrl { get; set; }
+        public string ImageURL { get; set; }
     }
 }
